@@ -1,0 +1,50 @@
+{
+  "variantName": "tabs-cards",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "traits": [
+      "4 tabs",
+      "panels with 3-column article cards"
+    ],
+    "rationale": [
+      "Underlined text tab menu whose panels each render a 3-column grid of linked article cards (image, tag, H3, short description)."
+    ],
+    "purpose": "tab menu whose panels each render a grid of linked article cards"
+  },
+  "contentPattern": {
+    "description": "Interactive tab component; each panel's article cards stay inside the tab panel (blocks cannot nest). All four tab labels and every card image are kept. Tabs: Climbing, Water, Cycling, Hiking. Each panel cell holds 3 items: image, tag paragraph, H3 title (link to article), description.",
+    "structure": "one row per tab: cell 1 tab label; cell 2 repeated cards, each authored as image, tag paragraph, H3 heading containing the article link, short description",
+    "blockContent": {
+      "source": "get_all_blocks_catalog details /block-collection/tabs",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "Tabs (variant)"
+          ]
+        },
+        {
+          "row": "2..n (one per tab)",
+          "cells": [
+            "Tab label",
+            "Tab content: repeated [image, tag, H3 with link, description]"
+          ]
+        }
+      ]
+    }
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Use to group article cards by category behind tabs (e.g. Climbing, Water, Cycling, Hiking).",
+  "reuseGuidance": "Reuse for any tabbed card grid. A new card starts at each image (or each heading when a card has no image).",
+  "sourceUrl": "https://wknd-adventures.com/",
+  "sectionMetadata": [
+    {
+      "section": "Browse by Activity",
+      "selector": "#main-content > section.section:nth-of-type(3)",
+      "sectionMetadata": null,
+      "note": null
+    }
+  ]
+}

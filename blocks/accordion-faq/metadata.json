@@ -1,0 +1,50 @@
+{
+  "variantName": "accordion-faq",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "traits": [
+      "bordered items",
+      "plus icon"
+    ],
+    "rationale": [
+      "Separate bordered rows with bold question and orange plus icon on the right."
+    ],
+    "purpose": "collapsible FAQ list of separate bordered question/answer items with a plus icon"
+  },
+  "contentPattern": {
+    "description": "Collapsible question/answer items are an interactive component: Accordion.",
+    "structure": "one row per item: cell 1 question; cell 2 answer (rich text)",
+    "blockContent": {
+      "source": "get_all_blocks_catalog details /block-collection/accordion",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "Accordion (variant)"
+          ]
+        },
+        {
+          "row": "2..n (one per item)",
+          "cells": [
+            "Question (title)",
+            "Answer (content)"
+          ]
+        }
+      ]
+    }
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Use for FAQ or quick-answer lists.",
+  "reuseGuidance": "Reuse for any question/answer disclosure list.",
+  "sourceUrl": "https://wknd-adventures.com/",
+  "sectionMetadata": [
+    {
+      "section": "Quick Answers",
+      "selector": "#main-content > section.section:nth-of-type(5)",
+      "sectionMetadata": null,
+      "note": null
+    }
+  ]
+}

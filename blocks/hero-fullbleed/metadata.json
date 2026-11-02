@@ -1,0 +1,56 @@
+{
+  "variantName": "hero-fullbleed",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "traits": [
+      "full-bleed background image",
+      "dark overlay",
+      "left aligned"
+    ],
+    "rationale": [
+      "Full-viewport background photo with dark overlay, left-aligned eyebrow, display H1, lead text and two buttons."
+    ],
+    "purpose": "full-viewport page-opening hero with a background photo, dark overlay and left-aligned headline and CTAs"
+  },
+  "contentPattern": {
+    "description": "Full-bleed background photo with overlaid headline and CTAs: a hero.",
+    "structure": "row 1: background image (optional); row 2: eyebrow paragraph, H1 heading, lead paragraph, CTA links (one link per paragraph; bold = primary, italic = secondary)",
+    "blockContent": {
+      "source": "get_all_blocks_catalog details /block-collection/hero",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "Hero (variant)"
+          ]
+        },
+        {
+          "row": 2,
+          "cells": [
+            "Background image (optional)"
+          ]
+        },
+        {
+          "row": 3,
+          "cells": [
+            "Eyebrow paragraph, heading, subheading, CTA links"
+          ]
+        }
+      ]
+    }
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Use once at the top of a page for a photo-backed opening statement.",
+  "reuseGuidance": "Reuse for any full-bleed photo hero with overlaid text. For an image-less centered banner use hero-cta.",
+  "sourceUrl": "https://wknd-adventures.com/",
+  "sectionMetadata": [
+    {
+      "section": "Hero",
+      "selector": "#main-content > section.hero-section.hero-section--full",
+      "sectionMetadata": null,
+      "note": "Photo background belongs to the hero block; section is not colored."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+/*
+ * hero-cta: centered closing call-to-action (heading, lede, button group).
+ * Section padding, background and button colors come from the section style
+ * (e.g. "orange, centered"); the block adds no padding of its own, matching
+ * the source container.
+ */
+.hero-cta {
+  text-align: center;
+}
+
+.hero-cta .hero-cta-content > :first-child {
+  margin-top: 0;
+}
+
+.hero-cta .hero-cta-content > :last-child {
+  margin-bottom: 0;
+}
+
+.hero-cta .hero-cta-content > h2 {
+  margin: 0 0 12px;
+}
+
+.hero-cta .hero-cta-content > p {
+  margin: 0 0 16px;
+  font-size: var(--body-font-size-l);
+  line-height: 1.6;
+}
+
+.hero-cta .hero-cta-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* button group: stacked full-width buttons on small screens (source <= 768px) */
+.hero-cta .hero-cta-actions {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+main .hero-cta .hero-cta-actions .button-wrapper {
+  display: flex;
+  width: 100%;
+  margin: 0;
+}
+
+main .hero-cta .hero-cta-actions a.button:any-link {
+  width: 100%;
+}
+
+@media (width > 768px) {
+  .hero-cta .hero-cta-actions {
+    flex-direction: row;
+  }
+
+  main .hero-cta .hero-cta-actions .button-wrapper {
+    width: auto;
+  }
+
+  main .hero-cta .hero-cta-actions a.button:any-link {
+    width: auto;
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "variantName": "hero-cta",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "traits": [
+      "no image",
+      "centered",
+      "compact"
+    ],
+    "rationale": [
+      "Image-less, centered, compact banner: H2, paragraph and two centered buttons."
+    ],
+    "purpose": "image-less, centered, compact call-to-action banner"
+  },
+  "contentPattern": {
+    "description": "Visual-tree hint is block; a centered call-to-action banner (headline, text, CTAs) uses the Hero content model without an image. Orange comes from the section style, not the block.",
+    "structure": "one cell: H2 heading, paragraph, CTA links (one link per paragraph); background color comes from the section style (e.g. Section Metadata style: orange, centered)",
+    "blockContent": {
+      "source": "get_all_blocks_catalog details /block-collection/hero",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "Hero (variant)"
+          ]
+        },
+        {
+          "row": 2,
+          "cells": [
+            "Background image (optional)"
+          ]
+        },
+        {
+          "row": 3,
+          "cells": [
+            "Eyebrow paragraph, heading, subheading, CTA links"
+          ]
+        }
+      ]
+    }
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Use as a closing or mid-page call to action. Put it in its own section and set the color through section metadata.",
+  "reuseGuidance": "Reuse for any centered headline-text-buttons banner without an image. For a photo background use hero-fullbleed.",
+  "sourceUrl": "https://wknd-adventures.com/",
+  "sectionMetadata": [
+    {
+      "section": "Closing CTA",
+      "selector": "#main-content > section.section.accent-section",
+      "sectionMetadata": {
+        "style": [
+          "orange",
+          "centered"
+        ]
+      },
+      "note": null
+    }
+  ]
+}

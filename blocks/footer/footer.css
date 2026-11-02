@@ -1,20 +1,117 @@
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  border-top: 4px solid var(--color-amber);
+  padding: 64px 0;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--body-font-family);
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+footer .footer-inner {
+  box-sizing: border-box;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
 }
 
 footer .footer p {
   margin: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+/* top: brand + link columns */
+footer .footer-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+footer .footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+footer .footer-logo-icon,
+footer .footer-logo img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+footer .footer-logo-text {
+  font-family: var(--heading-font-family);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+footer .footer-tagline {
+  color: #999;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+footer .footer-col-heading {
+  margin: 0 0 16px;
+  color: var(--color-white);
+  font-family: var(--heading-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+footer .footer-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer-link:any-link {
+  display: block;
+  padding: 12px 0;
+  color: #999;
+  font-size: 14px;
+  line-height: 1.6;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+footer .footer-link:hover,
+footer .footer-link:focus-visible {
+  color: var(--color-white);
+  opacity: 1;
+}
+
+footer .footer-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-white);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* bottom bar */
+footer .footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid var(--color-gray-700);
+  padding-top: 32px;
+}
+
+/* breakpoint-exception: source footer switches to its 4-column layout at 769px */
+@media (width >= 769px) {
+  footer .footer-inner {
+    padding: 0 24px;
+  }
+
+  footer .footer-top {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  footer .footer-link:any-link {
+    padding: 8px 0;
   }
 }

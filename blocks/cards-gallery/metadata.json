@@ -1,0 +1,53 @@
+{
+  "variantName": "cards-gallery",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "traits": [
+      "image only",
+      "3 columns",
+      "last item full width"
+    ],
+    "rationale": [
+      "Image-only rounded tiles, 3 per row; a final odd item spans the full width as a wide panorama."
+    ],
+    "purpose": "image-only gallery grid, three tiles per row, with a trailing odd tile spanning full width"
+  },
+  "contentPattern": {
+    "description": "Repeating look-alike images in a wrapping grid: Cards (image-only). 4 rows, image in first cell, text cell empty (alt text kept on images).",
+    "structure": "one row per tile: cell 1 image (alt text required); cell 2 optional caption (usually empty)",
+    "blockContent": {
+      "source": "get_all_blocks_catalog details /block-collection/cards",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "Cards (variant)"
+          ]
+        },
+        {
+          "row": "2..n (one per card)",
+          "cells": [
+            "Image (cards-gallery) / omitted for no-images (cards-ticker)",
+            "Text content (empty for cards-gallery; label for cards-ticker)"
+          ]
+        }
+      ]
+    }
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Use for photo galleries. Add 3n+1 images to get a full-width panorama as the last tile.",
+  "reuseGuidance": "Reuse for any image-only tile grid. For cards with text use a text cards variant.",
+  "sourceUrl": "https://wknd-adventures.com/",
+  "sectionMetadata": [
+    {
+      "section": "In the Field",
+      "selector": "#main-content > section.section.inverse-section:nth-of-type(7)",
+      "sectionMetadata": {
+        "style": "dark"
+      },
+      "note": null
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+/* full-bleed strip: the source ticker sits directly in <main> with no section padding */
+main > .section.cards-ticker-container {
+  padding: 0;
+}
+
+main > .section.cards-ticker-container > .cards-ticker-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.cards-ticker {
+  overflow: hidden;
+  padding: 16px 0;
+  border-top: 1px solid var(--color-amber);
+  border-bottom: 1px solid var(--color-amber);
+  color: var(--text-color);
+}
+
+.cards-ticker .cards-ticker-track {
+  display: flex;
+  width: max-content;
+  font-family: var(--heading-font-family);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  animation: cards-ticker-scroll 40s linear infinite;
+}
+
+.cards-ticker:hover .cards-ticker-track {
+  animation-play-state: paused;
+}
+
+/* trailing padding equals the gap so both copies are the same width and -50% loops seamlessly */
+.cards-ticker .cards-ticker-list {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 32px;
+  margin: 0;
+  padding: 0 32px 0 0;
+  list-style: none;
+}
+
+.cards-ticker .cards-ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* decorative dot separator after every item (including the last, so the loop joins cleanly) */
+.cards-ticker .cards-ticker-item::after {
+  content: '\00B7';
+  flex: 0 0 auto;
+  color: var(--color-amber);
+  font-size: 24px;
+  line-height: 1;
+}
+
+@keyframes cards-ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-ticker .cards-ticker-track {
+    font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-ticker {
+    overflow-x: auto;
+  }
+
+  .cards-ticker .cards-ticker-track {
+    animation: none;
+  }
+
+  .cards-ticker .cards-ticker-list[aria-hidden='true'] {
+    display: none;
+  }
+}
