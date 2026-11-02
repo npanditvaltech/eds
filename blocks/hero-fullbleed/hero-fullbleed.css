@@ -1,0 +1,151 @@
+/* full-bleed: the hero's section and wrapper span the viewport with no padding */
+main > .section.hero-fullbleed-container {
+  padding: 0;
+}
+
+main > .section > .hero-fullbleed-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.hero-fullbleed {
+  /* source hero buttons: amber primary, white ghost, dark offset shadows */
+  --button-bg: var(--color-amber);
+  --button-fg: var(--color-black);
+  --button-border: var(--color-amber);
+  --button-shadow: var(--color-black);
+  --button-ghost-fg: var(--color-white);
+  --button-ghost-border: var(--color-white-50);
+  --button-ghost-hover-bg: var(--color-amber);
+  --button-ghost-hover-fg: var(--color-black);
+  --focus-ring-color: var(--color-black);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 65vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-fullbleed .hero-fullbleed-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero-fullbleed .hero-fullbleed-media picture,
+.hero-fullbleed .hero-fullbleed-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-fullbleed .hero-fullbleed-media img {
+  max-width: 100%;
+  object-fit: cover;
+}
+
+/* dark bottom-up overlay keeps overlaid text readable */
+.hero-fullbleed.hero-fullbleed-has-media .hero-fullbleed-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(0 0 0 / 75%) 0, rgb(0 0 0 / 45%) 40%, rgb(0 0 0 / 25%));
+}
+
+.hero-fullbleed .hero-fullbleed-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 32px var(--container-padding);
+  color: var(--color-white);
+  text-align: left;
+  text-shadow: rgb(0 0 0 / 35%) 0 1px 3px;
+}
+
+.hero-fullbleed .hero-fullbleed-content-inner {
+  max-width: 832px;
+}
+
+.hero-fullbleed .hero-fullbleed-content-inner > :first-child {
+  margin-top: 0;
+}
+
+/* eyebrow tag: short paragraph directly before the heading */
+.hero-fullbleed .hero-fullbleed-content-inner > p:has(+ h1, + h2) {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  border-radius: var(--radius-full);
+  padding: 5px 8px 3px;
+  background-color: var(--color-amber);
+  color: var(--color-white);
+  font-family: var(--heading-font-family);
+  font-size: var(--tag-font-size);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  text-shadow: none;
+}
+
+.hero-fullbleed h1,
+.hero-fullbleed h2 {
+  margin: 16px 0 24px;
+  color: var(--color-white);
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.hero-fullbleed .hero-fullbleed-content-inner > :is(h1, h2):first-child {
+  margin-top: 0;
+}
+
+/* lead paragraph */
+.hero-fullbleed .hero-fullbleed-content-inner > :is(h1, h2) + p {
+  max-width: 608px;
+  margin: 0 0 24px;
+  color: var(--color-white-85);
+  font-size: var(--body-font-size-xl);
+  line-height: 1.6;
+}
+
+.hero-fullbleed .hero-fullbleed-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.hero-fullbleed .hero-fullbleed-content-inner .hero-fullbleed-actions > p {
+  display: flex;
+  width: 100%;
+  margin: 0;
+}
+
+.hero-fullbleed .hero-fullbleed-actions a.button:any-link {
+  width: 100%;
+}
+
+@media (width >= 900px) {
+  .hero-fullbleed .hero-fullbleed-content {
+    padding: 64px var(--container-padding);
+  }
+
+  .hero-fullbleed .hero-fullbleed-actions {
+    flex-flow: row wrap;
+  }
+
+  .hero-fullbleed .hero-fullbleed-content-inner .hero-fullbleed-actions > p {
+    width: auto;
+  }
+
+  .hero-fullbleed .hero-fullbleed-actions a.button:any-link {
+    width: auto;
+  }
+}

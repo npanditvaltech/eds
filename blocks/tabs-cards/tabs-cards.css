@@ -1,0 +1,200 @@
+/* tabs-cards: values from source .tab-container--wide computed styles */
+.tabs-cards {
+  color: var(--color-black);
+}
+
+/* tab menu */
+.tabs-cards .tabs-cards-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  max-width: 100%;
+  padding-top: 12px;
+  border-top: 2px solid var(--color-black);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-cards .tabs-cards-list::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-cards .tabs-cards-list button.tabs-cards-tab {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 8px 24px 8px 0;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: var(--color-gray-300);
+  font-family: var(--heading-font-family);
+  font-size: var(--body-font-size-l);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.tabs-cards .tabs-cards-list button.tabs-cards-tab:hover {
+  color: var(--color-gray-500);
+}
+
+.tabs-cards .tabs-cards-list button.tabs-cards-tab[aria-selected='true'] {
+  border-bottom-color: var(--color-amber);
+  color: var(--color-black);
+}
+
+.tabs-cards .tabs-cards-list button.tabs-cards-tab:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* panels */
+.tabs-cards .tabs-cards-pane {
+  margin-top: 48px;
+}
+
+.tabs-cards .tabs-cards-pane[aria-hidden='true'] {
+  display: none;
+}
+
+.tabs-cards .tabs-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* article card */
+.tabs-cards .tabs-cards-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  background-color: var(--color-white);
+  color: inherit;
+  overflow: hidden;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.tabs-cards .tabs-cards-card-linked {
+  cursor: pointer;
+}
+
+.tabs-cards .tabs-cards-card-linked:hover {
+  border-color: var(--color-gray-300);
+  background-color: var(--color-cream);
+  box-shadow: rgb(0 0 0 / 8%) 0 4px 20px;
+}
+
+.tabs-cards .tabs-cards-card-linked:has(a:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.tabs-cards .tabs-cards-card-image {
+  aspect-ratio: 16 / 10;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.tabs-cards .tabs-cards-card-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.tabs-cards .tabs-cards-card-image img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tabs-cards .tabs-cards-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  min-width: 0;
+  padding: 24px 16px;
+}
+
+.tabs-cards .tabs-cards-card-body > * {
+  margin-block: 0;
+}
+
+/* tag: paragraph directly before the card heading */
+.tabs-cards .tabs-cards-card-body > p:has(+ :is(h1, h2, h3, h4, h5, h6)) {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 5px 8px 3px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-amber);
+  color: var(--color-white);
+  font-family: var(--heading-font-family);
+  font-size: var(--tag-font-size);
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+}
+
+.tabs-cards .tabs-cards-card-body > :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: 12px;
+  color: var(--color-black);
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xs);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+}
+
+.tabs-cards .tabs-cards-card-body > :is(h1, h2, h3, h4, h5, h6) a:any-link {
+  color: inherit;
+  text-decoration: none;
+  opacity: 1;
+}
+
+.tabs-cards .tabs-cards-card-body > :is(h1, h2, h3, h4, h5, h6) a:focus-visible {
+  outline: none;
+}
+
+/* description */
+.tabs-cards .tabs-cards-card-body > :is(h1, h2, h3, h4, h5, h6) ~ p {
+  color: var(--color-gray-500);
+  font-size: var(--body-font-size-s);
+  line-height: 1.3;
+}
+
+/* stretch the heading link over the whole card */
+.tabs-cards .tabs-cards-card-linked :is(h1, h2, h3, h4, h5, h6) a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+@media (width >= 900px) {
+  .tabs-cards .tabs-cards-list {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .tabs-cards .tabs-cards-list button.tabs-cards-tab {
+    padding-right: 32px;
+    font-size: var(--body-font-size-xl);
+  }
+
+  .tabs-cards .tabs-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "eds": {
+      "previewOrg": "npanditvaltech",
+      "previewSite": "eds",
+      "contentHostUrl": "https://content.da.live/npanditvaltech/eds/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

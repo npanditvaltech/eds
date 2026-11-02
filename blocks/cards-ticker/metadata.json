@@ -1,0 +1,50 @@
+{
+  "variantName": "cards-ticker",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "traits": [
+      "no images",
+      "auto-scrolling marquee"
+    ],
+    "rationale": [
+      "Text-only items rendered in a single auto-scrolling horizontal strip with dot separators; the block duplicates items for the loop."
+    ],
+    "purpose": "auto-scrolling horizontal marquee of text labels with dot separators"
+  },
+  "contentPattern": {
+    "description": "Repeating set of look-alike labels rendered as an animated marquee; no library marquee, so Cards (no images) carries the items. Author the 10 unique labels once (source duplicates them for looping); separators are decorative.",
+    "structure": "one row per label, one cell of plain text. Author each label once; the block duplicates them for the loop and adds the separators",
+    "blockContent": {
+      "source": "get_all_blocks_catalog details /block-collection/cards",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "Cards (variant)"
+          ]
+        },
+        {
+          "row": "2..n (one per card)",
+          "cells": [
+            "Image (cards-gallery) / omitted for no-images (cards-ticker)",
+            "Text content (empty for cards-gallery; label for cards-ticker)"
+          ]
+        }
+      ]
+    }
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Use as a decorative strip between sections listing activities or keywords.",
+  "reuseGuidance": "Reuse for any looping text marquee. Motion stops for users who prefer reduced motion.",
+  "sourceUrl": "https://wknd-adventures.com/",
+  "sectionMetadata": [
+    {
+      "section": "Activity Ticker",
+      "selector": "#main-content > div.ticker-strip",
+      "sectionMetadata": null,
+      "note": null
+    }
+  ]
+}

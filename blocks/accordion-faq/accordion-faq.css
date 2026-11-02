@@ -1,0 +1,105 @@
+/* source "Quick Answers" section uses the narrow container (768px incl. padding) */
+main > .section.accordion-faq-container > div {
+  max-width: var(--container-narrow);
+}
+
+.accordion-faq .accordion-faq-item {
+  margin: 0 0 12px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.accordion-faq .accordion-faq-item:hover {
+  border-color: var(--color-amber);
+}
+
+.accordion-faq .accordion-faq-item-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--body-font-size-l);
+  font-weight: 600;
+  line-height: normal;
+  text-align: left;
+  list-style: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.accordion-faq .accordion-faq-item-label::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-faq .accordion-faq-item-label:hover {
+  background-color: var(--color-gray-100);
+}
+
+/* the item's overflow clip would hide the summary's outline: ring the rounded item instead */
+.accordion-faq .accordion-faq-item-label:focus-visible {
+  outline: none;
+}
+
+.accordion-faq .accordion-faq-item:has(> .accordion-faq-item-label:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* plus glyph, rotates 45deg into a cross when open */
+.accordion-faq .accordion-faq-item-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--color-amber);
+  font-size: var(--body-font-size-xl);
+  line-height: 1;
+  transition: transform 0.3s;
+}
+
+.accordion-faq .accordion-faq-item-icon::before {
+  content: '+';
+}
+
+.accordion-faq .accordion-faq-item[open] .accordion-faq-item-icon {
+  transform: rotate(45deg);
+}
+
+/* open/close slide (progressive: browsers without ::details-content toggle instantly) */
+.accordion-faq .accordion-faq-item::details-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s, content-visibility 0.35s allow-discrete;
+}
+
+.accordion-faq .accordion-faq-item[open]::details-content {
+  max-height: 30rem;
+}
+
+.accordion-faq .accordion-faq-item-body {
+  padding: 16px 24px;
+  color: var(--color-gray-700);
+  font-size: var(--body-font-size-m);
+  line-height: 1.7;
+}
+
+.accordion-faq .accordion-faq-item-body > :first-child {
+  margin-top: 0;
+}
+
+.accordion-faq .accordion-faq-item-body > :last-child {
+  margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-faq .accordion-faq-item-label,
+  .accordion-faq .accordion-faq-item-icon,
+  .accordion-faq .accordion-faq-item::details-content {
+    transition: none;
+  }
+}

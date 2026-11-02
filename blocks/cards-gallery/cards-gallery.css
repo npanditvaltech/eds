@@ -1,0 +1,48 @@
+.cards-gallery .cards-gallery-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-gallery .cards-gallery-item {
+  margin: 0;
+}
+
+.cards-gallery .cards-gallery-item-image {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  line-height: 0;
+}
+
+.cards-gallery .cards-gallery-item-image picture,
+.cards-gallery .cards-gallery-item-image img {
+  display: block;
+  width: 100%;
+}
+
+.cards-gallery .cards-gallery-item-image img {
+  height: 280px;
+  object-fit: cover;
+}
+
+/* a final item that starts a new row on its own is the wide panorama */
+.cards-gallery .cards-gallery-item:last-child:nth-child(3n + 1) img {
+  height: 360px;
+}
+
+.cards-gallery .cards-gallery-item-caption {
+  padding-top: 8px;
+}
+
+@media (width >= 900px) {
+  .cards-gallery .cards-gallery-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cards-gallery .cards-gallery-item:last-child:nth-child(3n + 1) {
+    grid-column: 1 / -1;
+  }
+}

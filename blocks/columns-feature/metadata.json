@@ -1,0 +1,53 @@
+{
+  "variantName": "columns-feature",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "traits": [
+      "2 columns",
+      "image left",
+      "text right"
+    ],
+    "rationale": [
+      "Two columns: large rounded image left, editorial text (tag, H2, paragraph, button) right, vertically centered."
+    ],
+    "purpose": "two-column featured article: image on one side, editorial text on the other"
+  },
+  "contentPattern": {
+    "description": "Fixed two-part side-by-side layout (image | text) that never wraps into a list: Columns.",
+    "structure": "one row, two cells: cell 1 image; cell 2 tag paragraph, H2 heading, paragraph, CTA link. Additional rows stack as further feature rows",
+    "blockContent": {
+      "source": "get_all_blocks_catalog details /block-collection/columns",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "Columns (variant)"
+          ]
+        },
+        {
+          "row": 2,
+          "cells": [
+            "Image",
+            "Tag, H2, paragraph, CTA link"
+          ]
+        }
+      ]
+    }
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Use to feature a single article or story with a large image next to its summary.",
+  "reuseGuidance": "Reuse for any fixed image | text split. Swap cell order to put the image on the right. For a repeating list of items use a cards block.",
+  "sourceUrl": "https://wknd-adventures.com/",
+  "sectionMetadata": [
+    {
+      "section": "Featured Article",
+      "selector": "#main-content > section.section.secondary-section:nth-of-type(2)",
+      "sectionMetadata": {
+        "style": "beige"
+      },
+      "note": null
+    }
+  ]
+}
