@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDS – Fast websites, simple authoring</title>
+<meta name="description" content="EDS builds fast, easy-to-edit websites. Write in the tools you already use and publish in minutes.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232B59FF'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'>E</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F1F4F6;
+    --surface: #FFFFFF;
+    --ink: #10212F;
+    --muted: #4C5E6C;
+    --line: #D3DBE1;
+    --accent: #2B59FF;
+    --accent-ink: #FFFFFF;
+    --good: #0E8A5F;
+    --bad: #B3261E;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0C1822; --surface: #13242F; --ink: #E8EEF2; --muted: #9AAAB6;
+      --line: #25394A; --accent: #7C9BFF; --accent-ink: #0C1822; --good: #4FD1A1; --bad: #FF8A80;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0C1822; --surface: #13242F; --ink: #E8EEF2; --muted: #9AAAB6;
+    --line: #25394A; --accent: #7C9BFF; --accent-ink: #0C1822; --good: #4FD1A1; --bad: #FF8A80;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 400 1.0625rem/1.6 var(--body);
+  }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); font-weight: 800; }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: 700; }
+  h3 { font-size: 1.25rem; font-weight: 700; }
+  p { margin: 0; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+  .skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: var(--bg); padding: .6rem 1rem; z-index: 100; }
+  .skip:focus { left: 1rem; top: 1rem; }
+
+  /* Header */
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 4rem; gap: 1rem; }
+  .logo { font: 800 1.5rem var(--display); text-decoration: none; letter-spacing: -0.03em; }
+  .logo span { color: var(--accent); }
+  nav ul { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; align-items: center; }
+  nav a { text-decoration: none; font-weight: 600; color: var(--muted); }
+  nav a:hover, nav a[aria-current="true"] { color: var(--ink); }
+  .tools { display: flex; gap: .5rem; align-items: center; }
+  .icon-btn {
+    width: 2.5rem; height: 2.5rem; display: grid; place-items: center; cursor: pointer;
+    background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 50%;
+  }
+  .icon-btn:hover { border-color: var(--ink); }
+  .menu-btn { display: none; }
+
+  .btn {
+    display: inline-block; cursor: pointer; text-decoration: none;
+    font: 600 1rem var(--body); padding: .8rem 1.4rem; border-radius: 8px;
+    background: var(--accent); color: var(--accent-ink); border: 2px solid var(--accent);
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn.ghost:hover { background: var(--ink); color: var(--bg); filter: none; }
+
+  /* Hero */
+  .hero { padding: clamp(3rem, 8vw, 6rem) 0; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 3rem; align-items: center; }
+  .hero p.lead { font-size: 1.25rem; color: var(--muted); max-width: 34rem; margin: 1.5rem 0 2rem; }
+  .actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+  .meter {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem;
+  }
+  .meter-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; gap: 1rem; }
+  .meter-head h2 { font-size: 1.15rem; }
+  .rings { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+  .ring { text-align: center; }
+  .ring svg { width: 100%; max-width: 84px; transform: rotate(-90deg); }
+  .ring .track { fill: none; stroke: var(--line); stroke-width: 8; }
+  .ring .fill { fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round;
+                stroke-dasharray: 238.76; stroke-dashoffset: 238.76; }
+  .ring .num { font: 700 1.3rem var(--display); margin-top: -3.6rem; height: 3.6rem; display: grid; place-items: center; }
+  .ring .lbl { font-size: .9rem; color: var(--muted); margin-top: .9rem; }
+  .meter-foot { margin-top: 1.25rem; min-height: 1.6rem; color: var(--muted); font-size: .95rem; }
+
+  /* Sections */
+  section.block { padding: clamp(3rem, 7vw, 5.5rem) 0; border-top: 1px solid var(--line); }
+  .sec-head { max-width: 40rem; margin-bottom: 2.5rem; }
+  .sec-head p { color: var(--muted); margin-top: .75rem; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+  .feature { padding: 1.75rem; border-right: 1px solid var(--line); }
+  .feature:last-child { border-right: 0; }
+  .feature p { color: var(--muted); margin-top: .6rem; }
+
+  .steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .steps li { counter-increment: s; border-top: 3px solid var(--ink); padding-top: 1rem; }
+  .steps li::before { content: "Step " counter(s); display: block; font-weight: 600; color: var(--accent); margin-bottom: .35rem; }
+  .steps p { color: var(--muted); margin-top: .5rem; }
+
+  /* FAQ */
+  .faq { max-width: 44rem; }
+  details { border-bottom: 1px solid var(--line); padding: 1.1rem 0; }
+  summary { cursor: pointer; font: 700 1.15rem var(--display); list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 1.5rem; line-height: 1; transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--muted); margin-top: .75rem; }
+
+  /* Contact */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
+  form { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.75rem; display: grid; gap: 1.1rem; }
+  label { font-weight: 600; display: block; margin-bottom: .35rem; }
+  input, textarea {
+    width: 100%; font: inherit; color: var(--ink); background: var(--bg);
+    border: 1.5px solid var(--line); border-radius: 8px; padding: .7rem .85rem;
+  }
+  textarea { min-height: 8rem; resize: vertical; }
+  input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--bad); }
+  .err { color: var(--bad); font-size: .92rem; min-height: 1.2rem; margin-top: .25rem; }
+  .status { padding: .85rem 1rem; border-radius: 8px; border: 1px solid var(--good); color: var(--good); font-weight: 600; }
+  [hidden] { display: none !important; }
+
+  footer { border-top: 1px solid var(--line); padding: 2rem 0; color: var(--muted); font-size: .95rem; }
+  .foot { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .hero-grid, .contact-grid { grid-template-columns: 1fr; }
+    .features, .steps { grid-template-columns: 1fr; }
+    .feature { border-right: 0; border-bottom: 1px solid var(--line); }
+    .feature:last-child { border-bottom: 0; }
+    .menu-btn { display: grid; }
+    nav { position: absolute; left: 0; right: 0; top: 4rem; background: var(--bg); border-bottom: 1px solid var(--line); display: none; }
+    nav.open { display: block; }
+    nav ul { flex-direction: column; align-items: flex-start; padding: 1rem 1.25rem 1.5rem; gap: 1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+  .ring .fill { transition: stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="EDS home">ED<span>S</span></a>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch to dark theme" title="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div id="top"></div>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Websites that load fast and are easy to edit.</h1>
+        <p class="lead">EDS helps your team write content in familiar tools and publish it in minutes, with pages that score near-perfect on speed from day one.</p>
+        <div class="actions">
+          <a class="btn" href="#contact">Start a project</a>
+          <a class="btn ghost" href="#how">See how it works</a>
+        </div>
+      </div>
+
+      <div class="meter" aria-labelledby="meter-title">
+        <div class="meter-head">
+          <h2 id="meter-title">Page health check</h2>
+          <button class="btn" id="run" type="button">Run check</button>
+        </div>
+        <div class="rings" id="rings">
+          <div class="ring" data-score="100"><svg viewBox="0 0 88 88" aria-hidden="true"><circle class="track" cx="44" cy="44" r="38"/><circle class="fill" cx="44" cy="44" r="38"/></svg><div class="num">0</div><div class="lbl">Performance</div></div>
+          <div class="ring" data-score="100"><svg viewBox="0 0 88 88" aria-hidden="true"><circle class="track" cx="44" cy="44" r="38"/><circle class="fill" cx="44" cy="44" r="38"/></svg><div class="num">0</div><div class="lbl">Accessibility</div></div>
+          <div class="ring" data-score="100"><svg viewBox="0 0 88 88" aria-hidden="true"><circle class="track" cx="44" cy="44" r="38"/><circle class="fill" cx="44" cy="44" r="38"/></svg><div class="num">0</div><div class="lbl">Best practice</div></div>
+          <div class="ring" data-score="100"><svg viewBox="0 0 88 88" aria-hidden="true"><circle class="track" cx="44" cy="44" r="38"/><circle class="fill" cx="44" cy="44" r="38"/></svg><div class="num">0</div><div class="lbl">SEO</div></div>
+        </div>
+        <p class="meter-foot" id="meter-msg" aria-live="polite">Illustrative demo. Press “Run check” to see the target scores.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Built for speed, designed for editors</h2>
+        <p>Everything you need to run a modern site without a heavy platform behind it.</p>
+      </div>
+      <div class="features">
+        <div class="feature"><h3>Fast by default</h3><p>Lean pages with minimal scripts, so visitors see content right away on any device.</p></div>
+        <div class="feature"><h3>Familiar authoring</h3><p>Your team writes in documents and sees changes live. No training course needed.</p></div>
+        <div class="feature"><h3>Reusable blocks</h3><p>Build once, reuse everywhere. Keep design consistent across every page.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>From draft to live in three steps</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Write</h3><p>Create or edit a page in your authoring tool, using ready-made blocks.</p></li>
+        <li><h3>Preview</h3><p>Share a preview link with reviewers and collect feedback in one place.</p></li>
+        <li><h3>Publish</h3><p>Approve and go live. Changes reach visitors within minutes.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="sec-head"><h2>Questions we hear often</h2></div>
+      <div class="faq">
+        <details><summary>How long does a typical project take?</summary><p>Most sites launch in a few weeks, depending on the number of page types and integrations. We confirm the timeline after a short discovery call.</p></details>
+        <details><summary>Can we keep using our current content tools?</summary><p>In most cases, yes. We connect to the tools your editors already know and migrate existing content where needed.</p></details>
+        <details><summary>Who maintains the site after launch?</summary><p>You can manage it with your own team, or we can provide ongoing support. Both options are available.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="wrap contact-grid">
+      <div class="sec-head" style="margin:0">
+        <h2>Tell us about your project</h2>
+        <p>Share a few details and we’ll reply within two business days.</p>
+        <p style="margin-top:1.25rem"><a href="mailto:hello@example.com">hello@example.com</a></p>
+      </div>
+
+      <form id="form" novalidate>
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+          <div class="err" id="e-name"></div>
+        </div>
+        <div>
+          <label for="email">Work email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+          <div class="err" id="e-email"></div>
+        </div>
+        <div>
+          <label for="msg">Message</label>
+          <textarea id="msg" name="msg" required></textarea>
+          <div class="err" id="e-msg"></div>
+        </div>
+        <button class="btn" type="submit">Send message</button>
+        <div class="status" id="ok" role="status" hidden>Message sent. Thanks, we’ll be in touch soon.</div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year"></span> EDS. All rights reserved.</span>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  var menuBtn = document.getElementById('menu');
+  var nav = document.getElementById('nav');
+  function setMenu(open) {
+    nav.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  menuBtn.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
+  nav.addEventListener('click', function (e) { if (e.target.tagName === 'A') setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+  // Theme toggle (remembered when storage is available)
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme');
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    return t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function syncThemeLabel() {
+    themeBtn.setAttribute('aria-label', isDark() ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  try { var saved = localStorage.getItem('eds-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  syncThemeLabel();
+  themeBtn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('eds-theme', next); } catch (e) {}
+    syncThemeLabel();
+  });
+
+  // Highlight current section in nav
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav a'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          links.forEach(function (a) {
+            a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + en.target.id));
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section.block').forEach(function (s) { io.observe(s); });
+  }
+
+  // Page health check demo
+  var C = 2 * Math.PI * 38;
+  var rings = document.querySelectorAll('.ring');
+  var runBtn = document.getElementById('run');
+  var msg = document.getElementById('meter-msg');
+  var timers = [];
+  function setRing(r, v) {
+    r.querySelector('.fill').style.strokeDashoffset = C * (1 - v / 100);
+    r.querySelector('.num').textContent = Math.round(v);
+  }
+  function count(r, target, delay) {
+    var t = setTimeout(function () {
+      var start = performance.now(), dur = 1200;
+      (function tick(now) {
+        var p = Math.min(1, (now - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        r.querySelector('.num').textContent = Math.round(target * eased);
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+      r.querySelector('.fill').style.strokeDashoffset = C * (1 - target / 100);
+    }, delay);
+    timers.push(t);
+  }
+  runBtn.addEventListener('click', function () {
+    timers.forEach(clearTimeout); timers = [];
+    runBtn.disabled = true;
+    msg.textContent = 'Checking…';
+    rings.forEach(function (r) { setRing(r, 0); });
+    rings.forEach(function (r, i) { count(r, +r.dataset.score, 150 + i * 200); });
+    timers.push(setTimeout(function () {
+      msg.textContent = 'Target scores for an EDS page. Real results depend on your content.';
+      runBtn.disabled = false;
+      runBtn.textContent = 'Run again';
+    }, 2400));
+  });
+
+  // Contact form validation
+  var form = document.getElementById('form');
+  var ok = document.getElementById('ok');
+  var fields = {
+    name:  { el: document.getElementById('name'),  err: document.getElementById('e-name'),  check: function (v) { return v.trim() ? '' : 'Enter your name.'; } },
+    email: { el: document.getElementById('email'), err: document.getElementById('e-email'), check: function (v) {
+      if (!v.trim()) return 'Enter your email address.';
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Enter a valid email, like name@company.com.';
+    } },
+    msg:   { el: document.getElementById('msg'),   err: document.getElementById('e-msg'),   check: function (v) {
+      return v.trim().length >= 10 ? '' : 'Write at least 10 characters about your project.';
+    } }
+  };
+  function validate(f) {
+    var m = f.check(f.el.value);
+    f.err.textContent = m;
+    f.el.setAttribute('aria-invalid', m ? 'true' : 'false');
+    f.el.setAttribute('aria-describedby', f.err.id);
+    return !m;
+  }
+  Object.keys(fields).forEach(function (k) {
+    fields[k].el.addEventListener('blur', function () { validate(fields[k]); });
+    fields[k].el.addEventListener('input', function () {
+      if (fields[k].el.getAttribute('aria-invalid') === 'true') validate(fields[k]);
+    });
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    ok.hidden = true;
+    var firstBad = null;
+    Object.keys(fields).forEach(function (k) {
+      if (!validate(fields[k]) && !firstBad) firstBad = fields[k].el;
+    });
+    if (firstBad) { firstBad.focus(); return; }
+    // TODO: send the data to your backend or form service here, e.g. fetch('/api/contact', { method: 'POST', body: new FormData(form) })
+    form.reset();
+    ok.hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
